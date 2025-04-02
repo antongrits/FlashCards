@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBErM6q8d-mRFYmq7a0oPvTsulmgMVuML0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1067198700704</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mmf.bsu.FlashCards</string>
+	<key>PROJECT_ID</key>
+	<string>flashcards-f4fb6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flashcards-f4fb6.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1067198700704:ios:394ec0a13e0973f18bfdc5</string>
+</dict>
+</plist>
