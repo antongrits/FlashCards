@@ -18,6 +18,7 @@
 		30D6864B2D9D63F000901425 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 30D6864A2D9D63F000901425 /* GoogleSignInSwift */; };
 		30D6864F2D9D715100901425 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30D6864E2D9D715100901425 /* GoogleService-Info.plist */; };
 		30D686552D9DC24900901425 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686542D9DC24900901425 /* CardModel.swift */; };
+		30D686572D9DCF3A00901425 /* LocalDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686562D9DCF3A00901425 /* LocalDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		30D6864E2D9D715100901425 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		30D686502D9D726B00901425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		30D686542D9DC24900901425 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		30D686562D9DCF3A00901425 /* LocalDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		30D6862F2D9D286F00901425 /* Local */ = {
 			isa = PBXGroup;
 			children = (
+				30D686562D9DCF3A00901425 /* LocalDataService.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			files = (
 				30D6862C2D9D283200901425 /* FlashCardsApp.swift in Sources */,
 				30D686402D9D3B1E00901425 /* PageModel.swift in Sources */,
+				30D686572D9DCF3A00901425 /* LocalDataService.swift in Sources */,
 				30D6863E2D9D3AE400901425 /* ViewRouter.swift in Sources */,
 				30D686552D9DC24900901425 /* CardModel.swift in Sources */,
 			);
