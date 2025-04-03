@@ -6,7 +6,7 @@
 //
 
 enum PageModel {
-    case mainView
+    case cardsView
     case addCardView
     case authView
 }

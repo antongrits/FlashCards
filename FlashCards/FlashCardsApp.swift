@@ -22,7 +22,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ app: UIApplication,
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-      return GIDSignIn.sharedInstance.handle(url)
+        return GIDSignIn.sharedInstance.handle(url)
     }
 }
 
@@ -32,10 +32,21 @@ struct FlashCardsApp: App {
     
     @StateObject private var viewRouter = ViewRouter()
     
+    let container: ModelContainer
+    
+    init() {
+        do {
+            container = try ModelContainer(for: CardModel.self)
+        } catch {
+            fatalError("Failed to create ModelContainer for Card.")
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
-            
+            CardsView(context: container.mainContext)
         }
-        .modelContainer(for: CardModel.self)
+        .environmentObject(viewRouter)
+        .modelContainer(container)
     }
 }

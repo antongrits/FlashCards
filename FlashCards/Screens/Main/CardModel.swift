@@ -12,11 +12,13 @@ import Foundation
 class CardModel {
     @Attribute(.unique) var id: String
     var word: String
-    var imageData: Data
+    var imageData: Data?
+    var createdAt: Date
     
-    init(id: String = UUID().uuidString, word: String, imageData: Data) {
+    init(id: String = UUID().uuidString, word: String, imageData: Data? = nil, createdAt: Date = Date()) {
         self.id = id
         self.word = word
         self.imageData = imageData
+        self.createdAt = createdAt
     }
 }

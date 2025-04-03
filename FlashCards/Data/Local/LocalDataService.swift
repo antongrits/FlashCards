@@ -11,20 +11,26 @@ import SwiftData
 struct LocalDataService {
     let context: ModelContext
     
-    func addCard(word: String, imageData: Data) throws -> CardModel {
-        let newCard = CardModel(word: word, imageData: imageData)
-        context.insert(newCard)
+    func addCard(_ card: CardModel) throws {
+        context.insert(card)
         try context.save()
-        return newCard
+    }
+    
+    func deleteCard(_ card: CardModel) throws {
+        context.delete(card)
+        try context.save()
     }
     
     func deleteAllCards() throws {
-        let fetchDescriptor = FetchDescriptor<CardModel>()
-        if let allCards = try? context.fetch(fetchDescriptor) {
+        if let allCards = try? context.fetch(FetchDescriptor<CardModel>()) {
             for card in allCards {
                 context.delete(card)
             }
             try context.save()
         }
+    }
+    
+    func fetchAllCards() throws -> [CardModel] {
+        return try context.fetch(FetchDescriptor<CardModel>(sortBy: [SortDescriptor(\.createdAt, order: .reverse)]))
     }
 }

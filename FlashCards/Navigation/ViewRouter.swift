@@ -8,5 +8,5 @@
 import Foundation
 
 class ViewRouter: ObservableObject {
-    @Published var currentPage: PageModel = .mainView
+    @Published var currentPage: PageModel = .cardsView
 }
