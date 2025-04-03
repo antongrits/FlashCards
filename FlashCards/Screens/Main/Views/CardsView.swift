@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct CardsView: View {
-    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var viewRouter: ViewRouter
     @StateObject private var cardsViewModel: CardsViewModel
     
@@ -110,24 +109,4 @@ struct CardsView: View {
             }
         }
     }
-}
-
-#Preview {
-    let container = makePreviewContainer()
-    return CardsView(context: container.mainContext)
-        .modelContainer(container)
-}
-
-private func makePreviewContainer() -> ModelContainer {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: CardModel.self, configurations: config)
-    let context = ModelContext(container)
-    
-    (1...10).forEach { i in
-        let card = CardModel(word: "Card \(i)")
-        context.insert(card)
-        try! context.save()
-    }
-    
-    return container
 }

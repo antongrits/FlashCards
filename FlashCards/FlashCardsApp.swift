@@ -44,7 +44,14 @@ struct FlashCardsApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CardsView(context: container.mainContext)
+            switch viewRouter.currentPage {
+            case .cardsView:
+                CardsView(context: container.mainContext)
+            case .addCardView:
+                AddCardView(context: container.mainContext)
+            case .authView:
+                AddCardView(context: container.mainContext)
+            }
         }
         .environmentObject(viewRouter)
         .modelContainer(container)

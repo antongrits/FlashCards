@@ -12,14 +12,19 @@ struct CardView: View {
     let card: CardModel
     
     @State private var isFlipped = false
+    @State private var flipBackTask: Task<Void, Never>? = nil
     @Binding var selectionMode: Bool
     
     private func cardImage() -> some View {
-        Image(uiImage: card.imageData != nil ? UIImage(data: card.imageData!)! : UIImage(systemName: "photo")!)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .padding(20)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+        GeometryReader { geometry in
+            Image(uiImage: UIImage(data: card.imageData)!)
+                .resizable()
+                .scaledToFill()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .clipped()
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+        .padding(20)
     }
     
     var body: some View {
@@ -52,16 +57,25 @@ struct CardView: View {
             .onTapGesture {
                 if !selectionMode {
                     isFlipped.toggle()
-                    
-                    if !isFlipped { return }
 
-                    Task {
+                    if !isFlipped {
+                        flipBackTask?.cancel()
+                        flipBackTask = nil
+                        return
+                    }
+
+                    flipBackTask = Task {
                         try? await Task.sleep(nanoseconds: 10 * 1_000_000_000)
-                        if isFlipped {
+                        if !Task.isCancelled {
                             isFlipped = false
+                            flipBackTask = nil
                         }
                     }
                 }
+            }
+            .onDisappear {
+                flipBackTask?.cancel()
+                flipBackTask = nil
             }
     }
 }
