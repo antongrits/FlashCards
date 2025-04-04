@@ -84,7 +84,6 @@ struct AddCardView: View {
                         }
                         
                         addCardViewModel.addCard()
-                        
                         withAnimation(.easeInOut) {
                             viewRouter.currentPage = .cardsView
                         }

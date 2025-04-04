@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct UserProfileView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var confirmDeletion = false
+    
+    private let localDataService: LocalDataService
+    
+    init(context: ModelContext) {
+        localDataService = LocalDataService(context: context)
+    }
 
     var body: some View {
         NavigationStack {
@@ -21,7 +28,7 @@ struct UserProfileView: View {
 
                 Section {
                     Button("Sign Out") {
-                        authViewModel.signOut()
+                        authViewModel.signOut(localDataService: localDataService)
                     }
 
                     Button("Delete Account") {
@@ -48,7 +55,7 @@ struct UserProfileView: View {
                 Group {
                     if authViewModel.isLoading {
                         ZStack {
-                            Color.black.opacity(0.2).ignoresSafeArea()
+                            Color.black.opacity(0.3).ignoresSafeArea(.all)
                             ProgressView().scaleEffect(1.5)
                         }
                     }
@@ -56,8 +63,4 @@ struct UserProfileView: View {
             )
         }
     }
-}
-
-#Preview {
-    UserProfileView()
 }

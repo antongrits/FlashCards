@@ -21,9 +21,9 @@ struct ContentView: View {
                 case .addCardView:
                     AddCardView(context: modelContext)
                 case .authView:
-                    AuthView()
+                    AuthView(context: modelContext)
                 case .userProfileView:
-                    UserProfileView()
+                    UserProfileView(context: modelContext)
                 }
             }
             

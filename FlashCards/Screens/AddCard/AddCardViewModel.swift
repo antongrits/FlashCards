@@ -9,6 +9,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 import SwiftData
+import FirebaseAuth
 
 @MainActor
 class AddCardViewModel: ObservableObject {
@@ -55,6 +56,7 @@ class AddCardViewModel: ObservableObject {
         do {
             let card = CardModel(word: word, imageData: selectedImageData!)
             try localDataService.addCard(card)
+            CardEventPublisher.shared.cardAdded.send(true)
         } catch {
             handleError("Failed to add card", error)
         }

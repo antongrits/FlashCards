@@ -9,9 +9,11 @@ import Foundation
 import FirebaseAuth
 import GoogleSignIn
 import FirebaseCore
+import FirebaseFirestore
+import FirebaseStorage
 
 @MainActor
-class FirebaseAuthService {
+final class FirebaseAuthService {
     static let shared = FirebaseAuthService()
     
     func signIn(email: String, password: String) async throws {
@@ -48,14 +50,34 @@ class FirebaseAuthService {
         try await Auth.auth().signIn(with: credential)
     }
     
-    func signOut() throws {
+    func signOut(localDataService: LocalDataService) throws {
         try Auth.auth().signOut()
+        try localDataService.deleteAllCards()
+    }
+    
+    func deleteUserData(userId: String) async throws {
+        let userRef = Firestore.firestore().collection("users").document(userId)
+        let snapshot = try await userRef.collection("cards").getDocuments()
+        
+        for doc in snapshot.documents {
+            let imagePath = doc.data()["imagePath"] as? String ?? ""
+            if !imagePath.isEmpty {
+                try? await Storage.storage().reference(withPath: imagePath).delete()
+            }
+        }
+        
+        for doc in snapshot.documents {
+            try await userRef.collection("cards").document(doc.documentID).delete()
+        }
+        
+        try await userRef.delete()
     }
     
     func deleteAccount() async throws {
         guard let user = Auth.auth().currentUser else {
             throw AuthError.noCurrentUser(message: "No user is currently signed in")
         }
+        try await deleteUserData(userId: user.uid)
         try await user.delete()
     }
 }

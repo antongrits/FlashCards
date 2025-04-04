@@ -1,15 +1,10 @@
-//
-//  CardsView.swift
-//  FlashCards
-//
-//  Created by Aнтон Гриц on 3.04.25.
-//
-
 import SwiftUI
 import SwiftData
+import FirebaseAuth
 
 struct CardsView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var authViewModel: AuthViewModel
     @StateObject private var cardsViewModel: CardsViewModel
     
     @State private var selectionMode = false
@@ -20,7 +15,6 @@ struct CardsView: View {
         _cardsViewModel = StateObject(wrappedValue: CardsViewModel(context: context))
     }
     
-    @ViewBuilder
     private func cardView(for card: CardModel) -> some View {
         CardView(card: card, selectionMode: $selectionMode)
             .overlay {
@@ -49,19 +43,25 @@ struct CardsView: View {
             GeometryReader { geometry in
                 let isLandscape = geometry.size.width > geometry.size.height
                 
-                ScrollView(.vertical) {
-                    LazyVGrid(columns: Array(
-                        repeating: GridItem(),
-                        count: isLandscape ? 3 : 2
-                    )) {
+                ScrollView {
+                    if cardsViewModel.isSyncing {
+                        ProgressView("Syncing...")
+                            .padding()
+                    }
+                    
+                    LazyVGrid(columns: Array(repeating: GridItem(), count: isLandscape ? 3 : 2)) {
                         ForEach(cardsViewModel.cards, id: \.id) { card in
                             cardView(for: card)
                         }
                     }
                     .padding(15)
                 }
-                .scrollIndicators(.hidden)
-                .scrollClipDisabled()
+                .onReceive(CardEventPublisher.shared.cardAdded) { value in
+                    if value {
+                        cardsViewModel.syncAfterExternalAddition()
+                        CardEventPublisher.shared.cardAdded.send(false)
+                    }
+                }
             }
             .alert("Error", isPresented: $cardsViewModel.showError) {
                 Button("OK", role: .cancel) {}

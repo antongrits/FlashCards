@@ -29,6 +29,8 @@
 		30D6866E2D9F301700901425 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6866D2D9F301700901425 /* AuthViewModel.swift */; };
 		30D686712D9F36A300901425 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686702D9F36A300901425 /* AuthView.swift */; };
 		30D686732D9F36AE00901425 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686722D9F36AE00901425 /* UserProfileView.swift */; };
+		30D686752D9FBE2500901425 /* FirebaseSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686742D9FBE2500901425 /* FirebaseSyncService.swift */; };
+		30D6867B2DA03F8200901425 /* CardEventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6867A2DA03F8200901425 /* CardEventPublisher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		30D6866D2D9F301700901425 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		30D686702D9F36A300901425 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		30D686722D9F36AE00901425 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		30D686742D9FBE2500901425 /* FirebaseSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSyncService.swift; sourceTree = "<group>"; };
+		30D6867A2DA03F8200901425 /* CardEventPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEventPublisher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				30D686662D9F08C500901425 /* FirebaseAuthService.swift */,
+				30D686742D9FBE2500901425 /* FirebaseSyncService.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 		30D686322D9D296F00901425 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				30D6867A2DA03F8200901425 /* CardEventPublisher.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -282,7 +288,9 @@
 			files = (
 				30D686712D9F36A300901425 /* AuthView.swift in Sources */,
 				30D6865B2D9DE03200901425 /* CardsView.swift in Sources */,
+				30D6867B2DA03F8200901425 /* CardEventPublisher.swift in Sources */,
 				30D686652D9EEE7F00901425 /* ContentView.swift in Sources */,
+				30D686752D9FBE2500901425 /* FirebaseSyncService.swift in Sources */,
 				30D686612D9E9E0100901425 /* AddCardViewModel.swift in Sources */,
 				30D6862C2D9D283200901425 /* FlashCardsApp.swift in Sources */,
 				30D686672D9F08C500901425 /* FirebaseAuthService.swift in Sources */,

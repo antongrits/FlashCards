@@ -81,13 +81,16 @@ class AuthViewModel: ObservableObject {
         return errorEmail.isEmpty && errorPassword.isEmpty && (isRegistration ? errorConfirmPassword.isEmpty : true)
     }
     
-    func login() async {
+    func login(localDataService: LocalDataService) async {
         guard validateFields(isRegistration: false) else { return }
         
         isLoading = true
         do {
             try await FirebaseAuthService.shared.signIn(email: email, password: password)
             clearFields()
+            try localDataService.deleteAllCards()
+            try await FirebaseSyncService.shared.syncFirestoreToLocal(userId: Auth.auth().currentUser!.uid,
+                                                                      localDataService: localDataService)
         } catch {
             errorMessage = error.localizedDescription
             showError = true
@@ -95,13 +98,15 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
-    func register() async {
+    func register(localDataService: LocalDataService) async {
         guard validateFields(isRegistration: true) else { return }
         
         isLoading = true
         do {
             try await FirebaseAuthService.shared.signUp(email: email, password: password)
             clearFields()
+            try await FirebaseSyncService.shared.syncLocalToFirestore(userId: Auth.auth().currentUser!.uid,
+                                                                      localDataService: localDataService)
         } catch {
             errorMessage = error.localizedDescription
             showError = true
@@ -109,10 +114,14 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
-    func signInWithGoogle() async {
+    func signInWithGoogle(localDataService: LocalDataService) async {
         isLoading = true
         do {
             try await FirebaseAuthService.shared.signInWithGoogle()
+            clearFields()
+            try localDataService.deleteAllCards()
+            try await FirebaseSyncService.shared.syncFirestoreToLocal(userId: Auth.auth().currentUser!.uid,
+                                                                      localDataService: localDataService)
         } catch let error as AuthError {
             switch error {
             case .noCurrentUser:
@@ -128,9 +137,9 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
-    func signOut() {
+    func signOut(localDataService: LocalDataService) {
         do {
-            try FirebaseAuthService.shared.signOut()
+            try FirebaseAuthService.shared.signOut(localDataService: localDataService)
             clearFields()
         } catch {
             errorMessage = error.localizedDescription

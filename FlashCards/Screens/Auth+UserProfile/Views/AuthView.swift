@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AuthView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var isRegistration = false
+    
+    private let localDataService: LocalDataService
+    
+    init(context: ModelContext) {
+        localDataService = LocalDataService(context: context)
+    }
     
     var body: some View {
         NavigationStack {
@@ -61,9 +68,9 @@ struct AuthView: View {
                     Button(isRegistration ? "Create Account" : "Log In") {
                         Task {
                             if isRegistration {
-                                await authViewModel.register()
+                                await authViewModel.register(localDataService: localDataService)
                             } else {
-                                await authViewModel.login()
+                                await authViewModel.login(localDataService: localDataService)
                             }
                         }
                     }
@@ -73,7 +80,7 @@ struct AuthView: View {
                 
                 Section {
                     Button(action: {
-                        Task { await authViewModel.signInWithGoogle() }
+                        Task { await authViewModel.signInWithGoogle(localDataService: localDataService) }
                     }) {
                         HStack {
                             Image(systemName: "globe")
@@ -107,18 +114,11 @@ struct AuthView: View {
                     if authViewModel.isLoading {
                         ZStack {
                             Color.black.opacity(0.3).ignoresSafeArea(.all)
-                            ProgressView()
-                                .scaleEffect(2.5)
-                                .ignoresSafeArea(.all)
+                            ProgressView().scaleEffect(1.5)
                         }
                     }
                 }
             )
         }
     }
-}
-
-#Preview {
-    AuthView()
-        .environmentObject(AuthViewModel())
 }
