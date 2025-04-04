@@ -24,6 +24,11 @@
 		30D6865E2D9DE45000901425 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6865D2D9DE45000901425 /* CardView.swift */; };
 		30D686612D9E9E0100901425 /* AddCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686602D9E9E0100901425 /* AddCardViewModel.swift */; };
 		30D686632D9EAC4000901425 /* AddCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686622D9EAC4000901425 /* AddCardView.swift */; };
+		30D686652D9EEE7F00901425 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686642D9EEE7F00901425 /* ContentView.swift */; };
+		30D686672D9F08C500901425 /* FirebaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686662D9F08C500901425 /* FirebaseAuthService.swift */; };
+		30D6866E2D9F301700901425 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6866D2D9F301700901425 /* AuthViewModel.swift */; };
+		30D686712D9F36A300901425 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686702D9F36A300901425 /* AuthView.swift */; };
+		30D686732D9F36AE00901425 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D686722D9F36AE00901425 /* UserProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +38,7 @@
 		30D6863D2D9D3AE400901425 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		30D6863F2D9D3B1500901425 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		30D6864E2D9D715100901425 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		30D686502D9D726B00901425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		30D686502D9D726B00901425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30D686542D9DC24900901425 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		30D686562D9DCF3A00901425 /* LocalDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataService.swift; sourceTree = "<group>"; };
 		30D686582D9DD7C800901425 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
@@ -41,6 +46,11 @@
 		30D6865D2D9DE45000901425 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		30D686602D9E9E0100901425 /* AddCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardViewModel.swift; sourceTree = "<group>"; };
 		30D686622D9EAC4000901425 /* AddCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardView.swift; sourceTree = "<group>"; };
+		30D686642D9EEE7F00901425 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		30D686662D9F08C500901425 /* FirebaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthService.swift; sourceTree = "<group>"; };
+		30D6866D2D9F301700901425 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		30D686702D9F36A300901425 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		30D686722D9F36AE00901425 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,14 +88,15 @@
 		30D6862B2D9D283200901425 /* FlashCards */ = {
 			isa = PBXGroup;
 			children = (
-				30D686502D9D726B00901425 /* Info.plist */,
 				30D6862A2D9D283200901425 /* FlashCardsApp.swift */,
+				30D686642D9EEE7F00901425 /* ContentView.swift */,
 				30D6863C2D9D39B900901425 /* Navigation */,
 				30D686312D9D288300901425 /* Screens */,
 				30D6862E2D9D286100901425 /* Data */,
-				30D686322D9D296F00901425 /* Shared */,
+				30D686322D9D296F00901425 /* Helpers */,
 				30D686292D9D283200901425 /* Assets.xcassets */,
 				30D6864E2D9D715100901425 /* GoogleService-Info.plist */,
+				30D686502D9D726B00901425 /* Info.plist */,
 			);
 			path = FlashCards;
 			sourceTree = "<group>";
@@ -110,6 +121,7 @@
 		30D686302D9D287500901425 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				30D686662D9F08C500901425 /* FirebaseAuthService.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -117,17 +129,18 @@
 		30D686312D9D288300901425 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				30D686512D9DC14700901425 /* Cards */,
 				30D6865F2D9E9DA000901425 /* AddCard */,
-				30D686512D9DC14700901425 /* Main */,
+				30D6866C2D9F2F5200901425 /* Auth+UserProfile */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		30D686322D9D296F00901425 /* Shared */ = {
+		30D686322D9D296F00901425 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Shared;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		30D6863C2D9D39B900901425 /* Navigation */ = {
@@ -139,14 +152,14 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		30D686512D9DC14700901425 /* Main */ = {
+		30D686512D9DC14700901425 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
 				30D686542D9DC24900901425 /* CardModel.swift */,
 				30D686582D9DD7C800901425 /* CardsViewModel.swift */,
 				30D6865C2D9DE42F00901425 /* Views */,
 			);
-			path = Main;
+			path = Cards;
 			sourceTree = "<group>";
 		};
 		30D6865C2D9DE42F00901425 /* Views */ = {
@@ -165,6 +178,24 @@
 				30D686622D9EAC4000901425 /* AddCardView.swift */,
 			);
 			path = AddCard;
+			sourceTree = "<group>";
+		};
+		30D6866C2D9F2F5200901425 /* Auth+UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				30D6866D2D9F301700901425 /* AuthViewModel.swift */,
+				30D6866F2D9F367400901425 /* Views */,
+			);
+			path = "Auth+UserProfile";
+			sourceTree = "<group>";
+		};
+		30D6866F2D9F367400901425 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				30D686702D9F36A300901425 /* AuthView.swift */,
+				30D686722D9F36AE00901425 /* UserProfileView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,15 +280,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30D686712D9F36A300901425 /* AuthView.swift in Sources */,
 				30D6865B2D9DE03200901425 /* CardsView.swift in Sources */,
+				30D686652D9EEE7F00901425 /* ContentView.swift in Sources */,
 				30D686612D9E9E0100901425 /* AddCardViewModel.swift in Sources */,
 				30D6862C2D9D283200901425 /* FlashCardsApp.swift in Sources */,
+				30D686672D9F08C500901425 /* FirebaseAuthService.swift in Sources */,
 				30D686402D9D3B1E00901425 /* PageModel.swift in Sources */,
 				30D686632D9EAC4000901425 /* AddCardView.swift in Sources */,
 				30D686592D9DD7C800901425 /* CardsViewModel.swift in Sources */,
 				30D686572D9DCF3A00901425 /* LocalDataService.swift in Sources */,
+				30D686732D9F36AE00901425 /* UserProfileView.swift in Sources */,
 				30D6863E2D9D3AE400901425 /* ViewRouter.swift in Sources */,
 				30D6865E2D9DE45000901425 /* CardView.swift in Sources */,
+				30D6866E2D9F301700901425 /* AuthViewModel.swift in Sources */,
 				30D686552D9DC24900901425 /* CardModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -31,6 +31,7 @@ struct FlashCardsApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @StateObject private var viewRouter = ViewRouter()
+    @StateObject private var authViewModel = AuthViewModel()
     
     let container: ModelContainer
     
@@ -44,16 +45,10 @@ struct FlashCardsApp: App {
     
     var body: some Scene {
         WindowGroup {
-            switch viewRouter.currentPage {
-            case .cardsView:
-                CardsView(context: container.mainContext)
-            case .addCardView:
-                AddCardView(context: container.mainContext)
-            case .authView:
-                AddCardView(context: container.mainContext)
-            }
+            ContentView()
         }
         .environmentObject(viewRouter)
+        .environmentObject(authViewModel)
         .modelContainer(container)
     }
 }

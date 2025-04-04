@@ -76,7 +76,7 @@ struct AddCardView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add") {
+                    Button("Save") {
                         addCardViewModel.validateWord()
                         addCardViewModel.validateImage()
                         if addCardViewModel.errorMessageForWord != "" || addCardViewModel.errorMessageForImage != "" {

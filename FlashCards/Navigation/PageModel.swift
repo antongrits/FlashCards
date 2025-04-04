@@ -9,4 +9,5 @@ enum PageModel {
     case cardsView
     case addCardView
     case authView
+    case userProfileView
 }
