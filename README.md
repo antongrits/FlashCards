@@ -42,19 +42,12 @@ FlashCards is a SwiftUI-based iOS application that allows users to create and ma
    - GoogleSignIn
 7. Build and run the project on a real device or simulator.
 
-![EEE3DBB4-8EC5-40AC-A3C3-9952BD3A3FCA_1_101_o](https://github.com/user-attachments/assets/febd2c87-bdb0-4c85-80fb-912a94409072)
-![CC7798CD-7F17-43AB-9BE8-6BBBAD7A2D07_1_101_o](https://github.com/user-attachments/assets/b3b2eabf-3cde-4320-adc3-5427b564f012)
-![8820CF37-C8D3-4FA6-8759-851B3AD4E836_1_101_o](https://github.com/user-attachments/assets/3245b2cc-c77e-4086-8852-0f9043842675)
-![BEDB4DAB-684B-494D-8962-3F4841470953_1_101_o](https://github.com/user-attachments/assets/beb8e1ce-9ddd-41f3-9b3e-58521449022e)
-![EC41B071-C1C1-45CC-B980-DCA36A696C45_1_101_o](https://github.com/user-attachments/assets/89758aa7-a6c3-4307-83d8-8b74fe8132e1)
-![FC9A2B03-F291-4F82-A00E-94BA10A0B778_1_101_o](https://github.com/user-attachments/assets/db046bfd-3334-4159-b686-9a78fb373c17)
-![0425765E-1E43-4E9B-8F5C-C760DED549A2_1_101_o](https://github.com/user-attachments/assets/48116993-aa66-427d-8b23-e1b0d241a1d9)
 
 
-
-
-
-
-
-
-
+<img width="166" alt="image" src="https://github.com/user-attachments/assets/febd2c87-bdb0-4c85-80fb-912a94409072" />
+<img width="166" alt="image" src="https://github.com/user-attachments/assets/b3b2eabf-3cde-4320-adc3-5427b564f012" />
+<img width="166" alt="image" src="https://github.com/user-attachments/assets/3245b2cc-c77e-4086-8852-0f9043842675" />
+<img width="166" alt="image" src="https://github.com/user-attachments/assets/beb8e1ce-9ddd-41f3-9b3e-58521449022e" />
+<img width="166" alt="image" src="https://github.com/user-attachments/assets/89758aa7-a6c3-4307-83d8-8b74fe8132e1" />
+<img width="166" alt="image" src="https://github.com/user-attachments/assets/db046bfd-3334-4159-b686-9a78fb373c17" />
+<img width="166" alt="image" src="https://github.com/user-attachments/assets/48116993-aa66-427d-8b23-e1b0d241a1d9" />
