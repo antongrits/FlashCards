@@ -4,14 +4,15 @@ FlashCards is a SwiftUI-based iOS application that allows users to create and ma
 
 ## Features
 
-- Display flashcards in a grid layout: 2 columns in portrait, 3 in landscape.
-- Add new flashcards by selecting an image from the photo library and providing a word.
+- Display flashcards in a responsive grid layout: 2 columns in portrait, 3 in landscape.
+- Add new flashcards by selecting an image from the photo library and entering a word.
 - Store flashcards locally using SwiftData.
-- Optional login to sync flashcards with Firebase Firestore and Firebase Storage.
+- Optional sign-in to sync flashcards with Firebase Firestore and Firebase Storage.
 - Authentication using Firebase Authentication (Email/Password and Google Sign-In).
-- Offline support with fallback to local data when not connected.
-- Two-way synchronization with Firebase when the user logs in.
-- Clean and simple UI with layout adaptation, animations, and responsive text.
+- Clear separation of local and cloud data logic.
+- Centralized synchronization logic handled by `FirebaseSyncService`.
+- Network error handling and deferred sync when offline.
+- Clean and adaptive UI with animations and responsive text.
 
 ## Technologies Used
 
