@@ -121,8 +121,6 @@ class AuthViewModel: ObservableObject {
             clearFields()
             
             if let isNew = result.additionalUserInfo?.isNewUser, isNew {
-                print(isNew)
-                print(result.additionalUserInfo!)
                 if let uid = Auth.auth().currentUser?.uid {
                     try await FirebaseSyncService.shared.pushLocalDataToFirebase(userId: uid)
                 }

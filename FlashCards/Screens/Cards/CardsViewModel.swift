@@ -116,14 +116,11 @@ class CardsViewModel: ObservableObject {
         cards = updated
     }
 
-    // MARK: - Общие методы
-
     private func setRetryOperation(_ operation: @escaping () async throws -> Void) {
         pendingOperation = operation
     }
 
     private func executePendingOperation() {
-        // Отмена предыдущего, если пользователь быстро нажимает
         pendingTask?.cancel()
         pendingTask = Task { [weak self] in
             guard let self = self else { return }
