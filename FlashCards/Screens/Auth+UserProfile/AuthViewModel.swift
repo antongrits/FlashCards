@@ -81,16 +81,14 @@ class AuthViewModel: ObservableObject {
         return errorEmail.isEmpty && errorPassword.isEmpty && (isRegistration ? errorConfirmPassword.isEmpty : true)
     }
     
-    func login(localDataService: LocalDataService) async {
+    func login() async {
         guard validateFields(isRegistration: false) else { return }
         
         isLoading = true
         do {
-            try await FirebaseAuthService.shared.signIn(email: email, password: password)
+            _ = try await FirebaseAuthService.shared.signIn(email: email, password: password)
             clearFields()
-            try localDataService.deleteAllCards()
-            try await FirebaseSyncService.shared.syncFirestoreToLocal(userId: Auth.auth().currentUser!.uid,
-                                                                      localDataService: localDataService)
+            
         } catch {
             errorMessage = error.localizedDescription
             showError = true
@@ -98,15 +96,17 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
-    func register(localDataService: LocalDataService) async {
+    func register() async {
         guard validateFields(isRegistration: true) else { return }
         
         isLoading = true
         do {
-            try await FirebaseAuthService.shared.signUp(email: email, password: password)
+            _ = try await FirebaseAuthService.shared.signUp(email: email, password: password)
             clearFields()
-            try await FirebaseSyncService.shared.syncLocalToFirestore(userId: Auth.auth().currentUser!.uid,
-                                                                      localDataService: localDataService)
+            
+            if let uid = Auth.auth().currentUser?.uid {
+                try await FirebaseSyncService.shared.pushLocalDataToFirebase(userId: uid)
+            }
         } catch {
             errorMessage = error.localizedDescription
             showError = true
@@ -114,14 +114,19 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
-    func signInWithGoogle(localDataService: LocalDataService) async {
+    func signInWithGoogle() async {
         isLoading = true
         do {
-            try await FirebaseAuthService.shared.signInWithGoogle()
+            let result = try await FirebaseAuthService.shared.signInWithGoogle()
             clearFields()
-            try localDataService.deleteAllCards()
-            try await FirebaseSyncService.shared.syncFirestoreToLocal(userId: Auth.auth().currentUser!.uid,
-                                                                      localDataService: localDataService)
+            
+            if let isNew = result.additionalUserInfo?.isNewUser, isNew {
+                print(isNew)
+                print(result.additionalUserInfo!)
+                if let uid = Auth.auth().currentUser?.uid {
+                    try await FirebaseSyncService.shared.pushLocalDataToFirebase(userId: uid)
+                }
+            }
         } catch let error as AuthError {
             switch error {
             case .noCurrentUser:
@@ -137,14 +142,16 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
-    func signOut(localDataService: LocalDataService) {
+    func signOut() {
+        isLoading = true
         do {
-            try FirebaseAuthService.shared.signOut(localDataService: localDataService)
+            try FirebaseAuthService.shared.signOut()
             clearFields()
         } catch {
             errorMessage = error.localizedDescription
             showError = true
         }
+        isLoading = false
     }
     
     func deleteAccount() async {

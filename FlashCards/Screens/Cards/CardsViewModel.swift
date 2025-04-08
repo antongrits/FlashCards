@@ -1,10 +1,3 @@
-//
-//  CardsViewModel.swift
-//  FlashCards
-//
-//  Created by Aнтон Гриц on 2.04.25.
-//
-
 import Foundation
 import SwiftData
 import FirebaseAuth
@@ -12,56 +5,151 @@ import FirebaseAuth
 @MainActor
 class CardsViewModel: ObservableObject {
     @Published var cards: [CardModel] = []
+
     @Published var isSyncing: Bool = false
     @Published var errorMessage: String = ""
     @Published var showError: Bool = false
-    
-    private var localDataService: LocalDataService
-    
-    init(context: ModelContext) {
-        self.localDataService = LocalDataService(context: context)
-        loadLocalCards()
+
+    var storageMode: StorageMode {
+        Auth.auth().currentUser == nil ? .local : .remote
+    }
+
+    // Операция и её Task
+    private var pendingOperation: (() async throws -> Void)?
+    private var pendingTask: Task<Void, Never>?
+
+    init() {
+        loadCards()
     }
     
-    func loadLocalCards() {
-        do {
-            cards = try localDataService.fetchAllCards()
-        } catch {
-            handleError("Failed to load cards", error)
-        }
+    deinit {
+        pendingTask?.cancel()
     }
-    
-    func deleteCard(_ card: CardModel) {
-        isSyncing = true
-        do {
-            try localDataService.deleteCard(card)
+
+    func loadCards() {
+        cards.removeAll()
+        if storageMode == .local {
             loadLocalCards()
-            if let userId = Auth.auth().currentUser?.uid {
-                Task {
-                    try await FirebaseSyncService.shared.syncLocalToFirestore(userId: userId, localDataService: localDataService)
-                    isSyncing = false
-                }
+        } else {
+            setRetryOperation { [weak self] in
+                try await self?.loadRemoteCards()
             }
+            executePendingOperation()
+        }
+    }
+
+    private func loadLocalCards() {
+        do {
+            cards = try LocalDataService.shared.fetchAllCards()
         } catch {
-            handleError("Failed to delete card", error)
+            showErrorWithMessage("Failed to load local cards: \(error.localizedDescription)")
         }
     }
-    
-    func syncAfterExternalAddition() {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
+
+    private func loadRemoteCards() async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         isSyncing = true
-        Task {
-            do {
-                try await FirebaseSyncService.shared.syncLocalToFirestore(userId: userId, localDataService: localDataService)
-            } catch {
-                handleError("Failed to sync card", error)
+        defer { isSyncing = false }
+
+        let fetched = try await FirebaseSyncService.shared.fetchAllFromFirebase(userId: uid)
+        cards = fetched
+    }
+
+    func addCard(_ card: CardModel) {
+        if storageMode == .local {
+            addLocalCard(card)
+        } else {
+            setRetryOperation { [weak self] in
+                try await self?.addRemoteCard(card)
             }
-            isSyncing = false
+            executePendingOperation()
         }
     }
-    
-    private func handleError(_ contextMessage: String, _ error: Error) {
-        errorMessage = "\(contextMessage): \(error.localizedDescription)"
-        showError = true
+
+    private func addLocalCard(_ card: CardModel) {
+        do {
+            try LocalDataService.shared.addCard(card)
+            loadLocalCards()
+        } catch {
+            showErrorWithMessage("Failed to add local card: \(error.localizedDescription)")
+        }
+    }
+
+    private func addRemoteCard(_ card: CardModel) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        isSyncing = true
+        defer { isSyncing = false }
+
+        try await FirebaseSyncService.shared.addCardToFirebase(userId: uid, card: card)
+        let updated = try await FirebaseSyncService.shared.fetchAllFromFirebase(userId: uid)
+        cards = updated
+    }
+
+    func deleteCards(_ cardsToDelete: [CardModel]) {
+        if storageMode == .local {
+            deleteLocalCards(cardsToDelete)
+        } else {
+            setRetryOperation { [weak self] in
+                try await self?.deleteRemoteCards(cardsToDelete)
+            }
+            executePendingOperation()
+        }
+    }
+
+    private func deleteLocalCards(_ cardsToDelete: [CardModel]) {
+        do {
+            try LocalDataService.shared.deleteCards(cardsToDelete)
+            loadLocalCards()
+        } catch {
+            showErrorWithMessage("Failed to delete local cards: \(error.localizedDescription)")
+        }
+    }
+
+    private func deleteRemoteCards(_ cardsToDelete: [CardModel]) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        isSyncing = true
+        defer { isSyncing = false }
+
+        let ids = cardsToDelete.map { $0.id }
+        try await FirebaseSyncService.shared.deleteCardsFromFirebase(userId: uid, cardIds: ids)
+        let updated = try await FirebaseSyncService.shared.fetchAllFromFirebase(userId: uid)
+        cards = updated
+    }
+
+    // MARK: - Общие методы
+
+    private func setRetryOperation(_ operation: @escaping () async throws -> Void) {
+        pendingOperation = operation
+    }
+
+    private func executePendingOperation() {
+        // Отмена предыдущего, если пользователь быстро нажимает
+        pendingTask?.cancel()
+        pendingTask = Task { [weak self] in
+            guard let self = self else { return }
+            do {
+                try await self.pendingOperation?()
+                self.pendingOperation = nil
+            } catch {
+                self.showErrorWithMessage(error.localizedDescription)
+            }
+        }
+    }
+
+    private func showErrorWithMessage(_ message: String) {
+        errorMessage = message
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.showError = true
+        }
+    }
+
+    func retryPendingOperation() {
+        executePendingOperation()
+    }
+
+    func cancelPendingOperation() {
+        pendingTask?.cancel()
+        pendingTask = nil
+        pendingOperation = nil
     }
 }

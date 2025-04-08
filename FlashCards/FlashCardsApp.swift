@@ -16,6 +16,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        _ = NetworkMonitor.shared
+        
         return true
     }
     
@@ -45,7 +47,7 @@ struct FlashCardsApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(modelContext: container.mainContext)
         }
         .environmentObject(viewRouter)
         .environmentObject(authViewModel)

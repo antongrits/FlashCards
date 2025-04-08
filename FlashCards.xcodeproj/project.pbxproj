@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		304201C72DA3A07A00B7C398 /* StorageMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304201C62DA3A07A00B7C398 /* StorageMode.swift */; };
+		304201C92DA3ACF000B7C398 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304201C82DA3ACF000B7C398 /* NetworkMonitor.swift */; };
 		30D6862C2D9D283200901425 /* FlashCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6862A2D9D283200901425 /* FlashCardsApp.swift */; };
 		30D6862D2D9D283200901425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D686292D9D283200901425 /* Assets.xcassets */; };
 		30D686372D9D33E600901425 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 30D686362D9D33E600901425 /* FirebaseAuth */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		304201C62DA3A07A00B7C398 /* StorageMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMode.swift; sourceTree = "<group>"; };
+		304201C82DA3ACF000B7C398 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		30D685F32D9D21E100901425 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D686292D9D283200901425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30D6862A2D9D283200901425 /* FlashCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsApp.swift; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				30D6867A2DA03F8200901425 /* CardEventPublisher.swift */,
+				304201C62DA3A07A00B7C398 /* StorageMode.swift */,
+				304201C82DA3ACF000B7C398 /* NetworkMonitor.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -292,6 +298,7 @@
 				30D686652D9EEE7F00901425 /* ContentView.swift in Sources */,
 				30D686752D9FBE2500901425 /* FirebaseSyncService.swift in Sources */,
 				30D686612D9E9E0100901425 /* AddCardViewModel.swift in Sources */,
+				304201C72DA3A07A00B7C398 /* StorageMode.swift in Sources */,
 				30D6862C2D9D283200901425 /* FlashCardsApp.swift in Sources */,
 				30D686672D9F08C500901425 /* FirebaseAuthService.swift in Sources */,
 				30D686402D9D3B1E00901425 /* PageModel.swift in Sources */,
@@ -301,6 +308,7 @@
 				30D686732D9F36AE00901425 /* UserProfileView.swift in Sources */,
 				30D6863E2D9D3AE400901425 /* ViewRouter.swift in Sources */,
 				30D6865E2D9DE45000901425 /* CardView.swift in Sources */,
+				304201C92DA3ACF000B7C398 /* NetworkMonitor.swift in Sources */,
 				30D6866E2D9F301700901425 /* AuthViewModel.swift in Sources */,
 				30D686552D9DC24900901425 /* CardModel.swift in Sources */,
 			);

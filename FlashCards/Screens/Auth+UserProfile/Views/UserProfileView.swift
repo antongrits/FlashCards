@@ -11,12 +11,6 @@ import SwiftData
 struct UserProfileView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var confirmDeletion = false
-    
-    private let localDataService: LocalDataService
-    
-    init(context: ModelContext) {
-        localDataService = LocalDataService(context: context)
-    }
 
     var body: some View {
         NavigationStack {
@@ -28,7 +22,7 @@ struct UserProfileView: View {
 
                 Section {
                     Button("Sign Out") {
-                        authViewModel.signOut(localDataService: localDataService)
+                        authViewModel.signOut()
                     }
 
                     Button("Delete Account") {

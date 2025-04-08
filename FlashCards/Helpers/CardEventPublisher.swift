@@ -6,8 +6,9 @@
 //
 
 import Combine
+import Foundation
 
 struct CardEventPublisher {
     static let shared = CardEventPublisher()
-    let cardAdded = CurrentValueSubject<Bool, Never>(false)
+    let cardAdded = CurrentValueSubject<CardModel?, Never>(nil)
 }

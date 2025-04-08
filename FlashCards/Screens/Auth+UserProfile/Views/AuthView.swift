@@ -12,12 +12,6 @@ struct AuthView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var isRegistration = false
     
-    private let localDataService: LocalDataService
-    
-    init(context: ModelContext) {
-        localDataService = LocalDataService(context: context)
-    }
-    
     var body: some View {
         NavigationStack {
             Form {
@@ -68,9 +62,9 @@ struct AuthView: View {
                     Button(isRegistration ? "Create Account" : "Log In") {
                         Task {
                             if isRegistration {
-                                await authViewModel.register(localDataService: localDataService)
+                                await authViewModel.register()
                             } else {
-                                await authViewModel.login(localDataService: localDataService)
+                                await authViewModel.login()
                             }
                         }
                     }
@@ -80,7 +74,7 @@ struct AuthView: View {
                 
                 Section {
                     Button(action: {
-                        Task { await authViewModel.signInWithGoogle(localDataService: localDataService) }
+                        Task { await authViewModel.signInWithGoogle() }
                     }) {
                         HStack {
                             Image(systemName: "globe")

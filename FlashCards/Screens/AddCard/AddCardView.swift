@@ -11,11 +11,7 @@ import SwiftData
 
 struct AddCardView: View {
     @EnvironmentObject var viewRouter: ViewRouter
-    @StateObject private var addCardViewModel: AddCardViewModel
-    
-    init(context: ModelContext) {
-        _addCardViewModel = StateObject(wrappedValue: AddCardViewModel(context: context))
-    }
+    @StateObject private var addCardViewModel = AddCardViewModel()
     
     private func cardImage(imageData: Data?) -> some View {
         Image(uiImage: imageData != nil ? UIImage(data: imageData!)! : UIImage(systemName: "photo")!)
@@ -77,13 +73,10 @@ struct AddCardView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
-                        addCardViewModel.validateWord()
-                        addCardViewModel.validateImage()
-                        if addCardViewModel.errorMessageForWord != "" || addCardViewModel.errorMessageForImage != "" {
-                            return
-                        }
+                        guard let card = addCardViewModel.prepareCard() else { return }
                         
-                        addCardViewModel.addCard()
+                        CardEventPublisher.shared.cardAdded.send(card)
+                        
                         withAnimation(.easeInOut) {
                             viewRouter.currentPage = .cardsView
                         }

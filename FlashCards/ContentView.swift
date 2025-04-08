@@ -6,29 +6,33 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var authViewModel: AuthViewModel
-
+    
+    init(modelContext: ModelContext) {
+        LocalDataService.shared.updateContext(modelContext)
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
                 switch viewRouter.currentPage {
                 case .cardsView:
-                    CardsView(context: modelContext)
+                    CardsView()
                 case .addCardView:
-                    AddCardView(context: modelContext)
+                    AddCardView()
                 case .authView:
-                    AuthView(context: modelContext)
+                    AuthView()
                 case .userProfileView:
-                    UserProfileView(context: modelContext)
+                    UserProfileView()
                 }
             }
             
             Divider()
-
+            
             HStack {
                 Button {
                     withAnimation(.easeInOut) {
@@ -36,12 +40,12 @@ struct ContentView: View {
                     }
                 } label: {
                     VStack {
-                        Image(systemName: "house.fill")
-                        Text("Home")
+                        Image(systemName: "square.stack")
+                        Text("Cards")
                     }
                 }
                 .frame(maxWidth: .infinity)
-
+                
                 Button {
                     withAnimation(.easeInOut) {
                         viewRouter.currentPage = authViewModel.user != nil ? .userProfileView : .authView
